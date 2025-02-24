@@ -13,19 +13,6 @@ from email import encoders
 class WaterReportApp(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.title("Программа учета воды")
-        self.geometry("800x600")
-        self.resizable(False, False)
-        self.tab_view = ctk.CTkTabview(self)
-        self.tab_view.pack(fill="both", expand=True, padx=10, pady=(10, 0))
-        self.tab_view.add("Ввод данных")
-        self.tab_view.add("Настройки SMTP")
-        self.create_input_tab()
-        self.create_settings_tab()
-
-    def create_input_tab(self):
-        input_frame = ctk.CTkFrame(self.tab_view.tab("Ввод данных"))
-        input_frame.pack(fill="both", expand=True, padx=20, pady=20)
         self.months_ru = {
             'January': 'января',
             'February': 'февраля',
@@ -40,6 +27,20 @@ class WaterReportApp(ctk.CTk):
             'November': 'ноября',
             'December': 'декабря'
         }
+        self.title("Программа учета воды")
+        self.geometry("400x550")
+        self.resizable(True, True)
+        self.tab_view = ctk.CTkTabview(self)
+        self.tab_view.pack(fill="both", expand=True, padx=15, pady=(10, 10))
+        self.tab_view.add("Ввод данных")
+        self.tab_view.add("Настройки SMTP")
+        self.create_input_tab()
+        self.create_settings_tab()
+
+    def create_input_tab(self):
+        input_frame = ctk.CTkFrame(self.tab_view.tab("Ввод данных"))
+        input_frame.pack(fill="both", expand=True, padx=20, pady=20)
+
         current_date = datetime.now()
 
         date_text = f'«{current_date.day}» {self.months_ru[current_date.strftime("%B")]} {current_date.year}г'
@@ -66,7 +67,7 @@ class WaterReportApp(ctk.CTk):
             text="Сформировать отчет",
             command=self.generate_report
         )
-        self.generate_button.pack(fill="x", pady=(20, 0))
+        self.generate_button.pack(fill="x", pady=(25, 0))
 
     def create_settings_tab(self):
         # Вкладка настроек
